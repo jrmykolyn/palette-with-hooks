@@ -1,5 +1,6 @@
 // Include standard Hooks as part of this project
 import React, { useState, useEffect, useContext } from 'react';
+import Form from './Form';
 import Palette from './Palette';
 
 const App = () => {
@@ -12,7 +13,10 @@ const App = () => {
   const [swatches, setSwatches] = useState(initialSwatches);
 
   return (
-    <Palette swatches={ swatches } />
+    <main>
+      <Palette swatches={ swatches } />
+      <Form />
+    </main>
   );
 };
 
