@@ -16,10 +16,14 @@ const App = () => {
     setSwatches((swatches) => [...swatches, swatch]);
   };
 
+  const handleInvalidInput = () => {
+    alert('Whoops! Please make sure that all input values are between 0 and 255.');
+  };
+
   return (
     <main>
       <Palette swatches={ swatches } />
-      <Form onSubmit={ addSwatch } />
+      <Form onSubmit={ addSwatch } onInvalid={ handleInvalidInput } />
     </main>
   );
 };
