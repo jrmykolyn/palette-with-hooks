@@ -9,7 +9,10 @@ const Form = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (props.onSubmit) props.onSubmit(inputRefs.map(([_, ref]) => Number(ref.current.value)));
+    if (props.onSubmit) {
+      props.onSubmit(inputRefs.map(([_, ref]) => Number(ref.current.value)));
+      inputRefs.map(([_, ref]) => ref.current.value = 0);
+    }
   };
 
   const inputElements = inputRefs.map(([name, ref], i) => <input key={i} ref={ ref } type="number" placeholder={ `Add a value for ${name}`} />)
