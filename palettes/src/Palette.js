@@ -1,16 +1,9 @@
-// Include standard Hooks as part of this project
 import React, { useState, useEffect, useContext } from 'react';
 import Swatch from './Swatch';
 
 // Component: a single colour Palette column
-const Palette = () => {
-  const swatches = [
-    [255, 0, 0],
-    [0, 255, 0],
-    [0, 0, 255],
-  ];
-
-  const swatchElements = swatches.map(([r, g, b]) => <Swatch red={r} green={g} blue={b} />);
+const Palette = ({ swatches }) => {
+  const swatchElements = swatches.map(([r, g, b], i) => <Swatch key={i} red={r} green={g} blue={b} />);
 
   // Render
   return (
