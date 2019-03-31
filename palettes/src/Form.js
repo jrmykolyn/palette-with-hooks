@@ -1,20 +1,22 @@
 import React, { useRef } from 'react';
 
 const Form = (props) => {
-  const rElement = useRef();
-  const gElement = useRef();
-  const bElement = useRef();
+  const inputRefs = [
+    ['r', useRef()],
+    ['g', useRef()],
+    ['b', useRef()],
+  ];
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (props.onSubmit) props.onSubmit(inputRefs.map(([_, ref]) => Number(ref.current.value)));
   };
 
+  const inputElements = inputRefs.map(([name, ref], i) => <input key={i} ref={ ref } type="number" placeholder={ `Add a value for ${name}`} />)
+
   return (
     <form onSubmit={ handleSubmit }>
-      <input ref={ rElement } type="number" name="r" />
-      <input ref={ gElement } type="number" name="g" />
-      <input ref={ bElement } type="number" name="b" />
+      { inputElements }
       <button>Add Swatch!</button>
     </form>
   );
