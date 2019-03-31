@@ -6,7 +6,7 @@ const { useState, useEffect, useContext } = React;
 const Channel = (props) => {
   // Create a local variable from our props
   const {rgb} = props;
- 
+
   // Ensure channel is within 0 and 255, then callback to update if changed
   const updateRgb = (channel) => {
     { (255 < channel == channel < 0) && props.handleOnChange(channel) };
@@ -30,7 +30,7 @@ const Swatch = (props) => {
   const [r, setR] = useState(props.red);
   const [g, setG] = useState(props.green);
   const [b, setB] = useState(props.blue);
-  
+
   // Define a background-color for the swatch
   const myStyles = {
     backgroundColor: `rgb(${r},${g},${b})`

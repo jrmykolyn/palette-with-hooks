@@ -1,28 +1,63 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect, useContext } from 'react';
+// Include standard Hooks as part of this project
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+// Component: controls a single Channel of each swatch (R, G or B)
+const Channel = (props) => {
+  // Create a local variable from our props
+  const {rgb} = props;
+
+  // Ensure channel is within 0 and 255, then callback to update if changed
+  const updateRgb = (channel) => {
+    if (channel <= 255 && channel >= 0) props.handleOnChange(channel);
   }
-}
 
-export default App;
+  // Render
+  return (
+    <div className="channel">
+      <button type="button" className="btn up" onClick={() => updateRgb(rgb + 1)}>+</button>
+      <input type="text" className="txt" value={rgb} onChange={({target}) => updateRgb(Number(target.value))} />
+      <button type="button" className="btn down" onClick={() => updateRgb(rgb - 1)}>-</button>
+    </div>
+  );
+};
+
+
+// Component: a Colour (swatch) row inside of a palette column
+const Swatch = (props) => {
+  // State variables: r, g, b
+  // When these change, the component will re-render
+  const [r, setR] = useState(props.red);
+  const [g, setG] = useState(props.green);
+  const [b, setB] = useState(props.blue);
+
+  // Define a background-color for the swatch
+  const myStyles = {
+    backgroundColor: `rgb(${r},${g},${b})`
+  }
+
+  // Render
+  return (
+    <li className="colour" style={myStyles}>
+      <div>rgb(</div>
+      <Channel rgb={r} handleOnChange={setR}/>
+      <Channel rgb={g} handleOnChange={setG} />
+      <Channel rgb={b} handleOnChange={setB} />
+      <div>);</div>
+    </li>
+  );
+};
+
+
+// Component: a single colour Palette column
+const Palette = () => {
+  // Render
+  return (
+    <ul className="palette">
+      <Swatch red={255} green={0} blue={0} />
+      <Swatch red={0} green={255} blue={0} />
+      <Swatch red={0} green={0} blue={255} />
+    </ul>
+  );
+};
+
+export default Palette;
