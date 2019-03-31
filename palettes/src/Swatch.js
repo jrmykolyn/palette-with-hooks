@@ -9,18 +9,26 @@ const Swatch = (props) => {
   const [g, setG] = useState(props.green);
   const [b, setB] = useState(props.blue);
 
+  const channels = [
+    [r, setR],
+    [g, setG],
+    [b, setB],
+  ];
+
   // Define a background-color for the swatch
   const myStyles = {
     backgroundColor: `rgb(${r},${g},${b})`
   }
 
+  const channelElements = channels.map(([val, setVal], i) => {
+      return <Channel key={i} rgb={val} handleOnChange={setVal}/>
+  });
+
   // Render
   return (
     <li className="colour" style={myStyles}>
       <div>rgb(</div>
-      <Channel rgb={r} handleOnChange={setR}/>
-      <Channel rgb={g} handleOnChange={setG} />
-      <Channel rgb={b} handleOnChange={setB} />
+        { channelElements }
       <div>);</div>
     </li>
   );
