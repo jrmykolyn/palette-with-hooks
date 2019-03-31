@@ -12,10 +12,14 @@ const App = () => {
 
   const [swatches, setSwatches] = useState(initialSwatches);
 
+  const addSwatch = (swatch) => {
+    setSwatches((swatches) => [...swatches, swatch]);
+  };
+
   return (
     <main>
       <Palette swatches={ swatches } />
-      <Form />
+      <Form onSubmit={ addSwatch } />
     </main>
   );
 };
